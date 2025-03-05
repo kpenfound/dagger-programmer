@@ -1,0 +1,13 @@
+{
+  "name": "moduleWorkspace",
+  "engineVersion": "v0.17.0-llm.3",
+  "sdk": {
+    "source": "typescript"
+  },
+  "dependencies": [
+    {
+      "name": "moduleHelper",
+      "source": "../moduleHelper"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "dagger-programmer",
+  "engineVersion": "v0.17.1-250304172530-f3bccd836b5e",
+  "sdk": {
+    "source": "python"
+  },
+  "dependencies": [
+    {
+      "name": "moduleHelper",
+      "source": "moduleHelper"
+    },
+    {
+      "name": "moduleWorkspace",
+      "source": "moduleWorkspace"
+    }
+  ]
+}
