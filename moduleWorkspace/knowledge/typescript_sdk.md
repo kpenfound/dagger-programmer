@@ -5,6 +5,13 @@ Assume `dag` is available globally.
 
 In Typescript, you must `import { dag, object, func } from "@dagger.io/dagger";` as well as the other Dagger types you are using.
 
+A Typescript Dagger module must always export it's main class, so a Foo module would:
+
+```typescript
+@object()
+export class Foo {
+```
+
 ## Chaining and Fields
 
 Object types directly translate to struct types, and have methods for each field.
