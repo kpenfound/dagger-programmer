@@ -5,7 +5,9 @@
 ### What is this?
 This is an agent specialized in working with Dagger modules. It can handle tasks like translating, writing examples, and maybe soon writing new functions.
 
-TODO: add gif
+Check out the full demo below:
+
+[![Watch the video](https://img.youtube.com/vi/Vqqz052vmHc/maxresdefault.jpg)](https://www.youtube.com/watch?v=Vqqz052vmHc)
 
 ### How do I try it?
 Start a dev Dagger Engine with LLM support using:
