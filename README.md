@@ -1,27 +1,42 @@
-# Dagger Programmer
+# Dagger Programmer 🤖
 
-This is an AI Agent specialized in Dagger modules.
+## An AI Agent specialized in Dagger modules.
 
-For information using Dagger with agents, check out [Dagger for AI Agents](https://docs.dagger.io/ai-agents)
+### What is this?
+This is an agent specialized in working with Dagger modules. It can handle tasks like translating, writing examples, and maybe soon writing new functions.
 
-## Capabilities
+TODO: add gif
 
-### Translate
+### How do I try it?
+Start a dev Dagger Engine with LLM support using:
+https://docs.dagger.io/ai-agents#initial-setup
+
+$ Start Dagger Shell:
+```
+dagger
+```
+
+⋈ Load the module
+```
+cd github.com/kpenfound/dagger-programmer
+```
 
 The agent can translate a Dagger module from it's original language to any other supported Dagger SDK.
 
-For example:
-
+⋈ Run the translate function:
 ```
-translate github.com/shykes/hello typescript
+translate github.com/shykes/hello typescript | terminal
 ```
-
-### Write Examples
 
 The agent can generate example usage for a Dagger module in the format recognized by the Daggerverse. This means creating a module at `examples/{sdk}` for each supported SDK. The example module shows how to use each function in the original module.
 
-For example:
+⋈ Generate examples for a module.
+```
+write-examples github.com/shykes/hello | terminal
+```
 
-```
-write-examples github.com/shykes/hello
-```
+#### What's next?
+
+- Write new functions for a module
+- Generate an entire module to Daggerize an application
+- ???
