@@ -115,6 +115,16 @@ class JSON(Scalar):
     """An arbitrary JSON-encoded value."""
 
 
+class LLMID(Scalar):
+    """The `LLMID` scalar type represents an identifier for an object of
+    type LLM."""
+
+
+class LLMVariableID(Scalar):
+    """The `LLMVariableID` scalar type represents an identifier for an
+    object of type LLMVariable."""
+
+
 class LabelID(Scalar):
     """The `LabelID` scalar type represents an identifier for an object of
     type Label."""
@@ -125,9 +135,9 @@ class ListTypeDefID(Scalar):
     object of type ListTypeDef."""
 
 
-class LlmID(Scalar):
-    """The `LlmID` scalar type represents an identifier for an object of
-    type Llm."""
+class ModuleConfigClientID(Scalar):
+    """The `ModuleConfigClientID` scalar type represents an identifier for
+    an object of type ModuleConfigClient."""
 
 
 class ModuleHelperID(Scalar):
@@ -2152,6 +2162,12 @@ class CurrentModule(Type):
 @typecheck
 class Directory(Type):
     """A directory."""
+
+    def as_git(self) -> "GitRepository":
+        """Converts this directory into a git repository"""
+        _args: list[Arg] = []
+        _ctx = self._select("asGit", _args)
+        return GitRepository(_ctx)
 
     def as_module(self, *, source_root_path: str | None = ".",) -> "Module":
         """Load the directory as a Dagger module source
@@ -4390,6 +4406,2246 @@ class InterfaceTypeDef(Type):
 
 
 @typecheck
+class LLM(Type):
+
+    def cache_volume(self) -> CacheVolume:
+        """Retrieve a the current value in the LLM environment, of type
+        CacheVolume
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("cacheVolume", _args)
+        return CacheVolume(_ctx)
+
+    def container(self) -> Container:
+        """Retrieve a the current value in the LLM environment, of type Container"""
+        _args: list[Arg] = []
+        _ctx = self._select("container", _args)
+        return Container(_ctx)
+
+    def current_module(self) -> CurrentModule:
+        """Retrieve a the current value in the LLM environment, of type
+        CurrentModule
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("currentModule", _args)
+        return CurrentModule(_ctx)
+
+    async def current_type(self) -> str | None:
+        """returns the type of the current state
+
+        Returns
+        -------
+        str | None
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("currentType", _args)
+        return await _ctx.execute(str | None)
+
+    def directory(self) -> Directory:
+        """Retrieve a the current value in the LLM environment, of type Directory"""
+        _args: list[Arg] = []
+        _ctx = self._select("directory", _args)
+        return Directory(_ctx)
+
+    def enum_type_def(self) -> EnumTypeDef:
+        """Retrieve a the current value in the LLM environment, of type
+        EnumTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("enumTypeDef", _args)
+        return EnumTypeDef(_ctx)
+
+    def enum_value_type_def(self) -> EnumValueTypeDef:
+        """Retrieve a the current value in the LLM environment, of type
+        EnumValueTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("enumValueTypeDef", _args)
+        return EnumValueTypeDef(_ctx)
+
+    def error(self) -> Error:
+        """Retrieve a the current value in the LLM environment, of type Error"""
+        _args: list[Arg] = []
+        _ctx = self._select("error", _args)
+        return Error(_ctx)
+
+    def error_value(self) -> ErrorValue:
+        """Retrieve a the current value in the LLM environment, of type
+        ErrorValue
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("errorValue", _args)
+        return ErrorValue(_ctx)
+
+    def field_type_def(self) -> FieldTypeDef:
+        """Retrieve a the current value in the LLM environment, of type
+        FieldTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("fieldTypeDef", _args)
+        return FieldTypeDef(_ctx)
+
+    def file(self) -> File:
+        """Retrieve a the current value in the LLM environment, of type File"""
+        _args: list[Arg] = []
+        _ctx = self._select("file", _args)
+        return File(_ctx)
+
+    def function(self) -> Function:
+        """Retrieve a the current value in the LLM environment, of type Function"""
+        _args: list[Arg] = []
+        _ctx = self._select("function", _args)
+        return Function(_ctx)
+
+    def function_arg(self) -> FunctionArg:
+        """Retrieve a the current value in the LLM environment, of type
+        FunctionArg
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("functionArg", _args)
+        return FunctionArg(_ctx)
+
+    def function_call(self) -> FunctionCall:
+        """Retrieve a the current value in the LLM environment, of type
+        FunctionCall
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("functionCall", _args)
+        return FunctionCall(_ctx)
+
+    def function_call_arg_value(self) -> FunctionCallArgValue:
+        """Retrieve a the current value in the LLM environment, of type
+        FunctionCallArgValue
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("functionCallArgValue", _args)
+        return FunctionCallArgValue(_ctx)
+
+    def generated_code(self) -> GeneratedCode:
+        """Retrieve a the current value in the LLM environment, of type
+        GeneratedCode
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("generatedCode", _args)
+        return GeneratedCode(_ctx)
+
+    def get_cache_volume(self, name: str) -> CacheVolume:
+        """Retrieve a variable in the llm environment, of type CacheVolume
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getCacheVolume", _args)
+        return CacheVolume(_ctx)
+
+    def get_container(self, name: str) -> Container:
+        """Retrieve a variable in the llm environment, of type Container
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getContainer", _args)
+        return Container(_ctx)
+
+    def get_current_module(self, name: str) -> CurrentModule:
+        """Retrieve a variable in the llm environment, of type CurrentModule
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getCurrentModule", _args)
+        return CurrentModule(_ctx)
+
+    def get_directory(self, name: str) -> Directory:
+        """Retrieve a variable in the llm environment, of type Directory
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getDirectory", _args)
+        return Directory(_ctx)
+
+    def get_enum_type_def(self, name: str) -> EnumTypeDef:
+        """Retrieve a variable in the llm environment, of type EnumTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getEnumTypeDef", _args)
+        return EnumTypeDef(_ctx)
+
+    def get_enum_value_type_def(self, name: str) -> EnumValueTypeDef:
+        """Retrieve a variable in the llm environment, of type EnumValueTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getEnumValueTypeDef", _args)
+        return EnumValueTypeDef(_ctx)
+
+    def get_error(self, name: str) -> Error:
+        """Retrieve a variable in the llm environment, of type Error
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getError", _args)
+        return Error(_ctx)
+
+    def get_error_value(self, name: str) -> ErrorValue:
+        """Retrieve a variable in the llm environment, of type ErrorValue
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getErrorValue", _args)
+        return ErrorValue(_ctx)
+
+    def get_field_type_def(self, name: str) -> FieldTypeDef:
+        """Retrieve a variable in the llm environment, of type FieldTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFieldTypeDef", _args)
+        return FieldTypeDef(_ctx)
+
+    def get_file(self, name: str) -> File:
+        """Retrieve a variable in the llm environment, of type File
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFile", _args)
+        return File(_ctx)
+
+    def get_function(self, name: str) -> Function:
+        """Retrieve a variable in the llm environment, of type Function
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFunction", _args)
+        return Function(_ctx)
+
+    def get_function_arg(self, name: str) -> FunctionArg:
+        """Retrieve a variable in the llm environment, of type FunctionArg
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFunctionArg", _args)
+        return FunctionArg(_ctx)
+
+    def get_function_call(self, name: str) -> FunctionCall:
+        """Retrieve a variable in the llm environment, of type FunctionCall
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFunctionCall", _args)
+        return FunctionCall(_ctx)
+
+    def get_function_call_arg_value(self, name: str) -> FunctionCallArgValue:
+        """Retrieve a variable in the llm environment, of type
+        FunctionCallArgValue
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getFunctionCallArgValue", _args)
+        return FunctionCallArgValue(_ctx)
+
+    def get_generated_code(self, name: str) -> GeneratedCode:
+        """Retrieve a variable in the llm environment, of type GeneratedCode
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getGeneratedCode", _args)
+        return GeneratedCode(_ctx)
+
+    def get_git_ref(self, name: str) -> GitRef:
+        """Retrieve a variable in the llm environment, of type GitRef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getGitRef", _args)
+        return GitRef(_ctx)
+
+    def get_git_repository(self, name: str) -> GitRepository:
+        """Retrieve a variable in the llm environment, of type GitRepository
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getGitRepository", _args)
+        return GitRepository(_ctx)
+
+    def get_input_type_def(self, name: str) -> InputTypeDef:
+        """Retrieve a variable in the llm environment, of type InputTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getInputTypeDef", _args)
+        return InputTypeDef(_ctx)
+
+    def get_interface_type_def(self, name: str) -> InterfaceTypeDef:
+        """Retrieve a variable in the llm environment, of type InterfaceTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getInterfaceTypeDef", _args)
+        return InterfaceTypeDef(_ctx)
+
+    def get_llm(self, name: str) -> Self:
+        """Retrieve a variable in the llm environment, of type LLM
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getLLM", _args)
+        return LLM(_ctx)
+
+    def get_list_type_def(self, name: str) -> "ListTypeDef":
+        """Retrieve a variable in the llm environment, of type ListTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getListTypeDef", _args)
+        return ListTypeDef(_ctx)
+
+    def get_module(self, name: str) -> "Module":
+        """Retrieve a variable in the llm environment, of type Module
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getModule", _args)
+        return Module(_ctx)
+
+    def get_module_config_client(self, name: str) -> "ModuleConfigClient":
+        """Retrieve a variable in the llm environment, of type ModuleConfigClient
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getModuleConfigClient", _args)
+        return ModuleConfigClient(_ctx)
+
+    def get_module_helper(self, name: str) -> "ModuleHelper":
+        """Retrieve a variable in the llm environment, of type ModuleHelper
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getModuleHelper", _args)
+        return ModuleHelper(_ctx)
+
+    def get_module_source(self, name: str) -> "ModuleSource":
+        """Retrieve a variable in the llm environment, of type ModuleSource
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getModuleSource", _args)
+        return ModuleSource(_ctx)
+
+    def get_module_workspace(self, name: str) -> "ModuleWorkspace":
+        """Retrieve a variable in the llm environment, of type ModuleWorkspace
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getModuleWorkspace", _args)
+        return ModuleWorkspace(_ctx)
+
+    def get_object_type_def(self, name: str) -> "ObjectTypeDef":
+        """Retrieve a variable in the llm environment, of type ObjectTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getObjectTypeDef", _args)
+        return ObjectTypeDef(_ctx)
+
+    def get_sdk_config(self, name: str) -> "SDKConfig":
+        """Retrieve a variable in the llm environment, of type SDKConfig
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getSDKConfig", _args)
+        return SDKConfig(_ctx)
+
+    def get_scalar_type_def(self, name: str) -> "ScalarTypeDef":
+        """Retrieve a variable in the llm environment, of type ScalarTypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getScalarTypeDef", _args)
+        return ScalarTypeDef(_ctx)
+
+    def get_secret(self, name: str) -> "Secret":
+        """Retrieve a variable in the llm environment, of type Secret
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getSecret", _args)
+        return Secret(_ctx)
+
+    def get_service(self, name: str) -> "Service":
+        """Retrieve a variable in the llm environment, of type Service
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getService", _args)
+        return Service(_ctx)
+
+    def get_socket(self, name: str) -> "Socket":
+        """Retrieve a variable in the llm environment, of type Socket
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getSocket", _args)
+        return Socket(_ctx)
+
+    def get_source_map(self, name: str) -> "SourceMap":
+        """Retrieve a variable in the llm environment, of type SourceMap
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getSourceMap", _args)
+        return SourceMap(_ctx)
+
+    async def get_string(self, name: str) -> str:
+        """Get a string variable from the LLM's environment
+
+        Parameters
+        ----------
+        name:
+            The variable name
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getString", _args)
+        return await _ctx.execute(str)
+
+    def get_terminal(self, name: str) -> "Terminal":
+        """Retrieve a variable in the llm environment, of type Terminal
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getTerminal", _args)
+        return Terminal(_ctx)
+
+    def get_type_def(self, name: str) -> "TypeDef":
+        """Retrieve a variable in the llm environment, of type TypeDef
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        """
+        _args = [
+            Arg("name", name),
+        ]
+        _ctx = self._select("getTypeDef", _args)
+        return TypeDef(_ctx)
+
+    def git_ref(self) -> GitRef:
+        """Retrieve a the current value in the LLM environment, of type GitRef"""
+        _args: list[Arg] = []
+        _ctx = self._select("gitRef", _args)
+        return GitRef(_ctx)
+
+    def git_repository(self) -> GitRepository:
+        """Retrieve a the current value in the LLM environment, of type
+        GitRepository
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("gitRepository", _args)
+        return GitRepository(_ctx)
+
+    async def history(self) -> list[str]:
+        """return the llm message history
+
+        Returns
+        -------
+        list[str]
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("history", _args)
+        return await _ctx.execute(list[str])
+
+    async def history_json(self) -> str:
+        """return the raw llm message history as json
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("historyJSON", _args)
+        return await _ctx.execute(str)
+
+    async def id(self) -> LLMID:
+        """A unique identifier for this LLM.
+
+        Note
+        ----
+        This is lazily evaluated, no operation is actually run.
+
+        Returns
+        -------
+        LLMID
+            The `LLMID` scalar type represents an identifier for an object of
+            type LLM.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("id", _args)
+        return await _ctx.execute(LLMID)
+
+    def input_type_def(self) -> InputTypeDef:
+        """Retrieve a the current value in the LLM environment, of type
+        InputTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("inputTypeDef", _args)
+        return InputTypeDef(_ctx)
+
+    def interface_type_def(self) -> InterfaceTypeDef:
+        """Retrieve a the current value in the LLM environment, of type
+        InterfaceTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("interfaceTypeDef", _args)
+        return InterfaceTypeDef(_ctx)
+
+    def l_lm(self) -> Self:
+        """Retrieve a the current value in the LLM environment, of type LLM"""
+        _args: list[Arg] = []
+        _ctx = self._select("lLM", _args)
+        return LLM(_ctx)
+
+    async def last_reply(self) -> str:
+        """return the last llm reply from the history
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("lastReply", _args)
+        return await _ctx.execute(str)
+
+    def list_type_def(self) -> "ListTypeDef":
+        """Retrieve a the current value in the LLM environment, of type
+        ListTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("listTypeDef", _args)
+        return ListTypeDef(_ctx)
+
+    def loop(self) -> Self:
+        """synchronize LLM state"""
+        _args: list[Arg] = []
+        _ctx = self._select("loop", _args)
+        return LLM(_ctx)
+
+    async def model(self) -> str:
+        """return the model used by the llm
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("model", _args)
+        return await _ctx.execute(str)
+
+    def module(self) -> "Module":
+        """Retrieve a the current value in the LLM environment, of type Module"""
+        _args: list[Arg] = []
+        _ctx = self._select("module", _args)
+        return Module(_ctx)
+
+    def module_config_client(self) -> "ModuleConfigClient":
+        """Retrieve a the current value in the LLM environment, of type
+        ModuleConfigClient
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("moduleConfigClient", _args)
+        return ModuleConfigClient(_ctx)
+
+    def module_helper(self) -> "ModuleHelper":
+        """Retrieve a the current value in the LLM environment, of type
+        ModuleHelper
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("moduleHelper", _args)
+        return ModuleHelper(_ctx)
+
+    def module_source(self) -> "ModuleSource":
+        """Retrieve a the current value in the LLM environment, of type
+        ModuleSource
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("moduleSource", _args)
+        return ModuleSource(_ctx)
+
+    def module_workspace(self) -> "ModuleWorkspace":
+        """Retrieve a the current value in the LLM environment, of type
+        ModuleWorkspace
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("moduleWorkspace", _args)
+        return ModuleWorkspace(_ctx)
+
+    def object_type_def(self) -> "ObjectTypeDef":
+        """Retrieve a the current value in the LLM environment, of type
+        ObjectTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("objectTypeDef", _args)
+        return ObjectTypeDef(_ctx)
+
+    async def provider(self) -> str:
+        """return the provider used by the llm
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("provider", _args)
+        return await _ctx.execute(str)
+
+    def scalar_type_def(self) -> "ScalarTypeDef":
+        """Retrieve a the current value in the LLM environment, of type
+        ScalarTypeDef
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("scalarTypeDef", _args)
+        return ScalarTypeDef(_ctx)
+
+    def sdkconfig(self) -> "SDKConfig":
+        """Retrieve a the current value in the LLM environment, of type SDKConfig"""
+        _args: list[Arg] = []
+        _ctx = self._select("sdkconfig", _args)
+        return SDKConfig(_ctx)
+
+    def secret(self) -> "Secret":
+        """Retrieve a the current value in the LLM environment, of type Secret"""
+        _args: list[Arg] = []
+        _ctx = self._select("secret", _args)
+        return Secret(_ctx)
+
+    def service(self) -> "Service":
+        """Retrieve a the current value in the LLM environment, of type Service"""
+        _args: list[Arg] = []
+        _ctx = self._select("service", _args)
+        return Service(_ctx)
+
+    def set_cache_volume(self, name: str, value: CacheVolume) -> Self:
+        """Set a variable of type CacheVolume in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The CacheVolume value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setCacheVolume", _args)
+        return LLM(_ctx)
+
+    def set_container(self, name: str, value: Container) -> Self:
+        """Set a variable of type Container in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Container value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setContainer", _args)
+        return LLM(_ctx)
+
+    def set_current_module(self, name: str, value: CurrentModule) -> Self:
+        """Set a variable of type CurrentModule in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The CurrentModule value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setCurrentModule", _args)
+        return LLM(_ctx)
+
+    def set_directory(self, name: str, value: Directory) -> Self:
+        """Set a variable of type Directory in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Directory value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setDirectory", _args)
+        return LLM(_ctx)
+
+    def set_enum_type_def(self, name: str, value: EnumTypeDef) -> Self:
+        """Set a variable of type EnumTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The EnumTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setEnumTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_enum_value_type_def(self, name: str, value: EnumValueTypeDef) -> Self:
+        """Set a variable of type EnumValueTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The EnumValueTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setEnumValueTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_error(self, name: str, value: Error) -> Self:
+        """Set a variable of type Error in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Error value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setError", _args)
+        return LLM(_ctx)
+
+    def set_error_value(self, name: str, value: ErrorValue) -> Self:
+        """Set a variable of type ErrorValue in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ErrorValue value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setErrorValue", _args)
+        return LLM(_ctx)
+
+    def set_field_type_def(self, name: str, value: FieldTypeDef) -> Self:
+        """Set a variable of type FieldTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The FieldTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFieldTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_file(self, name: str, value: File) -> Self:
+        """Set a variable of type File in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The File value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFile", _args)
+        return LLM(_ctx)
+
+    def set_function(self, name: str, value: Function) -> Self:
+        """Set a variable of type Function in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Function value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFunction", _args)
+        return LLM(_ctx)
+
+    def set_function_arg(self, name: str, value: FunctionArg) -> Self:
+        """Set a variable of type FunctionArg in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The FunctionArg value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFunctionArg", _args)
+        return LLM(_ctx)
+
+    def set_function_call(self, name: str, value: FunctionCall) -> Self:
+        """Set a variable of type FunctionCall in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The FunctionCall value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFunctionCall", _args)
+        return LLM(_ctx)
+
+    def set_function_call_arg_value(self, name: str, value: FunctionCallArgValue,) -> Self:
+        """Set a variable of type FunctionCallArgValue in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The FunctionCallArgValue value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setFunctionCallArgValue", _args)
+        return LLM(_ctx)
+
+    def set_generated_code(self, name: str, value: GeneratedCode) -> Self:
+        """Set a variable of type GeneratedCode in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The GeneratedCode value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setGeneratedCode", _args)
+        return LLM(_ctx)
+
+    def set_git_ref(self, name: str, value: GitRef) -> Self:
+        """Set a variable of type GitRef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The GitRef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setGitRef", _args)
+        return LLM(_ctx)
+
+    def set_git_repository(self, name: str, value: GitRepository) -> Self:
+        """Set a variable of type GitRepository in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The GitRepository value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setGitRepository", _args)
+        return LLM(_ctx)
+
+    def set_input_type_def(self, name: str, value: InputTypeDef) -> Self:
+        """Set a variable of type InputTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The InputTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setInputTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_interface_type_def(self, name: str, value: InterfaceTypeDef) -> Self:
+        """Set a variable of type InterfaceTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The InterfaceTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setInterfaceTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_llm(self, name: str, value: Self) -> Self:
+        """Set a variable of type LLM in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The LLM value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setLLM", _args)
+        return LLM(_ctx)
+
+    def set_list_type_def(self, name: str, value: "ListTypeDef") -> Self:
+        """Set a variable of type ListTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ListTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setListTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_module(self, name: str, value: "Module") -> Self:
+        """Set a variable of type Module in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Module value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setModule", _args)
+        return LLM(_ctx)
+
+    def set_module_config_client(self, name: str, value: "ModuleConfigClient",) -> Self:
+        """Set a variable of type ModuleConfigClient in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ModuleConfigClient value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setModuleConfigClient", _args)
+        return LLM(_ctx)
+
+    def set_module_helper(self, name: str, value: "ModuleHelper") -> Self:
+        """Set a variable of type ModuleHelper in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ModuleHelper value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setModuleHelper", _args)
+        return LLM(_ctx)
+
+    def set_module_source(self, name: str, value: "ModuleSource") -> Self:
+        """Set a variable of type ModuleSource in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ModuleSource value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setModuleSource", _args)
+        return LLM(_ctx)
+
+    def set_module_workspace(self, name: str, value: "ModuleWorkspace") -> Self:
+        """Set a variable of type ModuleWorkspace in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ModuleWorkspace value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setModuleWorkspace", _args)
+        return LLM(_ctx)
+
+    def set_object_type_def(self, name: str, value: "ObjectTypeDef") -> Self:
+        """Set a variable of type ObjectTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ObjectTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setObjectTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_sdk_config(self, name: str, value: "SDKConfig") -> Self:
+        """Set a variable of type SDKConfig in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The SDKConfig value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setSDKConfig", _args)
+        return LLM(_ctx)
+
+    def set_scalar_type_def(self, name: str, value: "ScalarTypeDef") -> Self:
+        """Set a variable of type ScalarTypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The ScalarTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setScalarTypeDef", _args)
+        return LLM(_ctx)
+
+    def set_secret(self, name: str, value: "Secret") -> Self:
+        """Set a variable of type Secret in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Secret value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setSecret", _args)
+        return LLM(_ctx)
+
+    def set_service(self, name: str, value: "Service") -> Self:
+        """Set a variable of type Service in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Service value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setService", _args)
+        return LLM(_ctx)
+
+    def set_socket(self, name: str, value: "Socket") -> Self:
+        """Set a variable of type Socket in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Socket value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setSocket", _args)
+        return LLM(_ctx)
+
+    def set_source_map(self, name: str, value: "SourceMap") -> Self:
+        """Set a variable of type SourceMap in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The SourceMap value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setSourceMap", _args)
+        return LLM(_ctx)
+
+    def set_string(self, name: str, value: str) -> Self:
+        """Add a string variable to the LLM's environment
+
+        Parameters
+        ----------
+        name:
+            The variable name
+        value:
+            The variable value
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setString", _args)
+        return LLM(_ctx)
+
+    def set_terminal(self, name: str, value: "Terminal") -> Self:
+        """Set a variable of type Terminal in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The Terminal value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setTerminal", _args)
+        return LLM(_ctx)
+
+    def set_type_def(self, name: str, value: "TypeDef") -> Self:
+        """Set a variable of type TypeDef in the llm environment
+
+        Parameters
+        ----------
+        name:
+            The name of the variable
+        value:
+            The TypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("setTypeDef", _args)
+        return LLM(_ctx)
+
+    def socket(self) -> "Socket":
+        """Retrieve a the current value in the LLM environment, of type Socket"""
+        _args: list[Arg] = []
+        _ctx = self._select("socket", _args)
+        return Socket(_ctx)
+
+    def source_map(self) -> "SourceMap":
+        """Retrieve a the current value in the LLM environment, of type SourceMap"""
+        _args: list[Arg] = []
+        _ctx = self._select("sourceMap", _args)
+        return SourceMap(_ctx)
+
+    async def sync(self) -> Self:
+        """synchronize LLM state
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("sync", _args)
+        _id = await _ctx.execute(LLMID)
+        _ctx = Client.from_context(_ctx)._select("loadLLMFromID", [Arg("id", _id)])
+        return LLM(_ctx)
+
+    def __await__(self):
+        return self.sync().__await__()
+
+    def terminal(self) -> "Terminal":
+        """Retrieve a the current value in the LLM environment, of type Terminal"""
+        _args: list[Arg] = []
+        _ctx = self._select("terminal", _args)
+        return Terminal(_ctx)
+
+    async def tools(self) -> str:
+        """print documentation for available tools
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("tools", _args)
+        return await _ctx.execute(str)
+
+    def type_def(self) -> "TypeDef":
+        """Retrieve a the current value in the LLM environment, of type TypeDef"""
+        _args: list[Arg] = []
+        _ctx = self._select("typeDef", _args)
+        return TypeDef(_ctx)
+
+    async def variables(self) -> list["LLMVariable"]:
+        """list variables in the LLM environment"""
+        _args: list[Arg] = []
+        _ctx = self._select("variables", _args)
+        _ctx = LLMVariable(_ctx)._select("id", [])
+        @dataclass
+        class Response:
+            id: LLMVariableID
+        _ids = await _ctx.execute(list[Response])
+        return [LLMVariable(Client.from_context(_ctx)._select("loadLLMVariableFromID", [Arg("id", v.id)],)) for v in _ids]
+
+    def with_cache_volume(self, value: CacheVolume) -> Self:
+        """Set a variable of type CacheVolume in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The CacheVolume value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withCacheVolume", _args)
+        return LLM(_ctx)
+
+    def with_container(self, value: Container) -> Self:
+        """Set a variable of type Container in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Container value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withContainer", _args)
+        return LLM(_ctx)
+
+    def with_current_module(self, value: CurrentModule) -> Self:
+        """Set a variable of type CurrentModule in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The CurrentModule value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withCurrentModule", _args)
+        return LLM(_ctx)
+
+    def with_directory(self, value: Directory) -> Self:
+        """Set a variable of type Directory in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Directory value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withDirectory", _args)
+        return LLM(_ctx)
+
+    def with_enum_type_def(self, value: EnumTypeDef) -> Self:
+        """Set a variable of type EnumTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The EnumTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withEnumTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_enum_value_type_def(self, value: EnumValueTypeDef) -> Self:
+        """Set a variable of type EnumValueTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The EnumValueTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withEnumValueTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_error(self, value: Error) -> Self:
+        """Set a variable of type Error in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Error value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withError", _args)
+        return LLM(_ctx)
+
+    def with_error_value(self, value: ErrorValue) -> Self:
+        """Set a variable of type ErrorValue in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ErrorValue value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withErrorValue", _args)
+        return LLM(_ctx)
+
+    def with_field_type_def(self, value: FieldTypeDef) -> Self:
+        """Set a variable of type FieldTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The FieldTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFieldTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_file(self, value: File) -> Self:
+        """Set a variable of type File in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The File value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFile", _args)
+        return LLM(_ctx)
+
+    def with_function(self, value: Function) -> Self:
+        """Set a variable of type Function in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Function value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFunction", _args)
+        return LLM(_ctx)
+
+    def with_function_arg(self, value: FunctionArg) -> Self:
+        """Set a variable of type FunctionArg in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The FunctionArg value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFunctionArg", _args)
+        return LLM(_ctx)
+
+    def with_function_call(self, value: FunctionCall) -> Self:
+        """Set a variable of type FunctionCall in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The FunctionCall value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFunctionCall", _args)
+        return LLM(_ctx)
+
+    def with_function_call_arg_value(self, value: FunctionCallArgValue) -> Self:
+        """Set a variable of type FunctionCallArgValue in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The FunctionCallArgValue value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withFunctionCallArgValue", _args)
+        return LLM(_ctx)
+
+    def with_generated_code(self, value: GeneratedCode) -> Self:
+        """Set a variable of type GeneratedCode in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The GeneratedCode value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withGeneratedCode", _args)
+        return LLM(_ctx)
+
+    def with_git_ref(self, value: GitRef) -> Self:
+        """Set a variable of type GitRef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The GitRef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withGitRef", _args)
+        return LLM(_ctx)
+
+    def with_git_repository(self, value: GitRepository) -> Self:
+        """Set a variable of type GitRepository in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The GitRepository value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withGitRepository", _args)
+        return LLM(_ctx)
+
+    def with_input_type_def(self, value: InputTypeDef) -> Self:
+        """Set a variable of type InputTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The InputTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withInputTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_interface_type_def(self, value: InterfaceTypeDef) -> Self:
+        """Set a variable of type InterfaceTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The InterfaceTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withInterfaceTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_llm(self, value: Self) -> Self:
+        """Set a variable of type LLM in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The LLM value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withLLM", _args)
+        return LLM(_ctx)
+
+    def with_list_type_def(self, value: "ListTypeDef") -> Self:
+        """Set a variable of type ListTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ListTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withListTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_model(self, model: str) -> Self:
+        """swap out the llm model
+
+        Parameters
+        ----------
+        model:
+            The model to use
+        """
+        _args = [
+            Arg("model", model),
+        ]
+        _ctx = self._select("withModel", _args)
+        return LLM(_ctx)
+
+    def with_module(self, value: "Module") -> Self:
+        """Set a variable of type Module in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Module value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withModule", _args)
+        return LLM(_ctx)
+
+    def with_module_config_client(self, value: "ModuleConfigClient") -> Self:
+        """Set a variable of type ModuleConfigClient in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ModuleConfigClient value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withModuleConfigClient", _args)
+        return LLM(_ctx)
+
+    def with_module_helper(self, value: "ModuleHelper") -> Self:
+        """Set a variable of type ModuleHelper in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ModuleHelper value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withModuleHelper", _args)
+        return LLM(_ctx)
+
+    def with_module_source(self, value: "ModuleSource") -> Self:
+        """Set a variable of type ModuleSource in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ModuleSource value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withModuleSource", _args)
+        return LLM(_ctx)
+
+    def with_module_workspace(self, value: "ModuleWorkspace") -> Self:
+        """Set a variable of type ModuleWorkspace in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ModuleWorkspace value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withModuleWorkspace", _args)
+        return LLM(_ctx)
+
+    def with_object_type_def(self, value: "ObjectTypeDef") -> Self:
+        """Set a variable of type ObjectTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ObjectTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withObjectTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_prompt(self, prompt: str) -> Self:
+        """append a prompt to the llm context
+
+        Parameters
+        ----------
+        prompt:
+            The prompt to send
+        """
+        _args = [
+            Arg("prompt", prompt),
+        ]
+        _ctx = self._select("withPrompt", _args)
+        return LLM(_ctx)
+
+    def with_prompt_file(self, file: File) -> Self:
+        """append the contents of a file to the llm context
+
+        Parameters
+        ----------
+        file:
+            The file to read the prompt from
+        """
+        _args = [
+            Arg("file", file),
+        ]
+        _ctx = self._select("withPromptFile", _args)
+        return LLM(_ctx)
+
+    def with_prompt_var(self, name: str, value: str) -> Self:
+        """Add a string variable to the LLM's environment
+
+        Parameters
+        ----------
+        name:
+            The variable name
+        value:
+            The variable value
+        """
+        _args = [
+            Arg("name", name),
+            Arg("value", value),
+        ]
+        _ctx = self._select("withPromptVar", _args)
+        return LLM(_ctx)
+
+    def with_query(self) -> Self:
+        """Provide the entire Query object to the LLM"""
+        _args: list[Arg] = []
+        _ctx = self._select("withQuery", _args)
+        return LLM(_ctx)
+
+    def with_sdk_config(self, value: "SDKConfig") -> Self:
+        """Set a variable of type SDKConfig in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The SDKConfig value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withSDKConfig", _args)
+        return LLM(_ctx)
+
+    def with_scalar_type_def(self, value: "ScalarTypeDef") -> Self:
+        """Set a variable of type ScalarTypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The ScalarTypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withScalarTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_secret(self, value: "Secret") -> Self:
+        """Set a variable of type Secret in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Secret value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withSecret", _args)
+        return LLM(_ctx)
+
+    def with_service(self, value: "Service") -> Self:
+        """Set a variable of type Service in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Service value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withService", _args)
+        return LLM(_ctx)
+
+    def with_socket(self, value: "Socket") -> Self:
+        """Set a variable of type Socket in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Socket value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withSocket", _args)
+        return LLM(_ctx)
+
+    def with_source_map(self, value: "SourceMap") -> Self:
+        """Set a variable of type SourceMap in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The SourceMap value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withSourceMap", _args)
+        return LLM(_ctx)
+
+    def with_terminal(self, value: "Terminal") -> Self:
+        """Set a variable of type Terminal in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The Terminal value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withTerminal", _args)
+        return LLM(_ctx)
+
+    def with_type_def(self, value: "TypeDef") -> Self:
+        """Set a variable of type TypeDef in the llm environment
+
+        Parameters
+        ----------
+        value:
+            The TypeDef value to assign to the variable
+        """
+        _args = [
+            Arg("value", value),
+        ]
+        _ctx = self._select("withTypeDef", _args)
+        return LLM(_ctx)
+
+    def with_(self, cb: Callable[["LLM"], "LLM"]) -> "LLM":
+        """Call the provided callable with current LLM.
+
+        This is useful for reusability and readability by not breaking the calling chain.
+        """
+        return cb(self)
+
+
+
+@typecheck
+class LLMVariable(Type):
+
+    async def hash(self) -> str:
+        """Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("hash", _args)
+        return await _ctx.execute(str)
+
+    async def id(self) -> LLMVariableID:
+        """A unique identifier for this LLMVariable.
+
+        Note
+        ----
+        This is lazily evaluated, no operation is actually run.
+
+        Returns
+        -------
+        LLMVariableID
+            The `LLMVariableID` scalar type represents an identifier for an
+            object of type LLMVariable.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("id", _args)
+        return await _ctx.execute(LLMVariableID)
+
+    async def name(self) -> str:
+        """Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("name", _args)
+        return await _ctx.execute(str)
+
+    async def type_name(self) -> str:
+        """Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("typeName", _args)
+        return await _ctx.execute(str)
+
+
+@typecheck
 class Label(Type):
     """A simple key value object that represents a label."""
 
@@ -4493,865 +6749,6 @@ class ListTypeDef(Type):
         _args: list[Arg] = []
         _ctx = self._select("id", _args)
         return await _ctx.execute(ListTypeDefID)
-
-
-@typecheck
-class Llm(Type):
-
-    def cache_volume(self) -> CacheVolume:
-        """Retrieve the llm state as a CacheVolume"""
-        _args: list[Arg] = []
-        _ctx = self._select("cacheVolume", _args)
-        return CacheVolume(_ctx)
-
-    def container(self) -> Container:
-        """Retrieve the llm state as a Container"""
-        _args: list[Arg] = []
-        _ctx = self._select("container", _args)
-        return Container(_ctx)
-
-    def current_module(self) -> CurrentModule:
-        """Retrieve the llm state as a CurrentModule"""
-        _args: list[Arg] = []
-        _ctx = self._select("currentModule", _args)
-        return CurrentModule(_ctx)
-
-    def directory(self) -> Directory:
-        """Retrieve the llm state as a Directory"""
-        _args: list[Arg] = []
-        _ctx = self._select("directory", _args)
-        return Directory(_ctx)
-
-    def enum_type_def(self) -> EnumTypeDef:
-        """Retrieve the llm state as a EnumTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("enumTypeDef", _args)
-        return EnumTypeDef(_ctx)
-
-    def enum_value_type_def(self) -> EnumValueTypeDef:
-        """Retrieve the llm state as a EnumValueTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("enumValueTypeDef", _args)
-        return EnumValueTypeDef(_ctx)
-
-    def error(self) -> Error:
-        """Retrieve the llm state as a Error"""
-        _args: list[Arg] = []
-        _ctx = self._select("error", _args)
-        return Error(_ctx)
-
-    def error_value(self) -> ErrorValue:
-        """Retrieve the llm state as a ErrorValue"""
-        _args: list[Arg] = []
-        _ctx = self._select("errorValue", _args)
-        return ErrorValue(_ctx)
-
-    def field_type_def(self) -> FieldTypeDef:
-        """Retrieve the llm state as a FieldTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("fieldTypeDef", _args)
-        return FieldTypeDef(_ctx)
-
-    def file(self) -> File:
-        """Retrieve the llm state as a File"""
-        _args: list[Arg] = []
-        _ctx = self._select("file", _args)
-        return File(_ctx)
-
-    def function(self) -> Function:
-        """Retrieve the llm state as a Function"""
-        _args: list[Arg] = []
-        _ctx = self._select("function", _args)
-        return Function(_ctx)
-
-    def function_arg(self) -> FunctionArg:
-        """Retrieve the llm state as a FunctionArg"""
-        _args: list[Arg] = []
-        _ctx = self._select("functionArg", _args)
-        return FunctionArg(_ctx)
-
-    def function_call(self) -> FunctionCall:
-        """Retrieve the llm state as a FunctionCall"""
-        _args: list[Arg] = []
-        _ctx = self._select("functionCall", _args)
-        return FunctionCall(_ctx)
-
-    def function_call_arg_value(self) -> FunctionCallArgValue:
-        """Retrieve the llm state as a FunctionCallArgValue"""
-        _args: list[Arg] = []
-        _ctx = self._select("functionCallArgValue", _args)
-        return FunctionCallArgValue(_ctx)
-
-    def generated_code(self) -> GeneratedCode:
-        """Retrieve the llm state as a GeneratedCode"""
-        _args: list[Arg] = []
-        _ctx = self._select("generatedCode", _args)
-        return GeneratedCode(_ctx)
-
-    def git_ref(self) -> GitRef:
-        """Retrieve the llm state as a GitRef"""
-        _args: list[Arg] = []
-        _ctx = self._select("gitRef", _args)
-        return GitRef(_ctx)
-
-    def git_repository(self) -> GitRepository:
-        """Retrieve the llm state as a GitRepository"""
-        _args: list[Arg] = []
-        _ctx = self._select("gitRepository", _args)
-        return GitRepository(_ctx)
-
-    async def history(self) -> list[str]:
-        """return the llm message history
-
-        Returns
-        -------
-        list[str]
-            The `String` scalar type represents textual data, represented as
-            UTF-8 character sequences. The String type is most often used by
-            GraphQL to represent free-form human-readable text.
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("history", _args)
-        return await _ctx.execute(list[str])
-
-    async def id(self) -> LlmID:
-        """A unique identifier for this Llm.
-
-        Note
-        ----
-        This is lazily evaluated, no operation is actually run.
-
-        Returns
-        -------
-        LlmID
-            The `LlmID` scalar type represents an identifier for an object of
-            type Llm.
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("id", _args)
-        return await _ctx.execute(LlmID)
-
-    def input_type_def(self) -> InputTypeDef:
-        """Retrieve the llm state as a InputTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("inputTypeDef", _args)
-        return InputTypeDef(_ctx)
-
-    def interface_type_def(self) -> InterfaceTypeDef:
-        """Retrieve the llm state as a InterfaceTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("interfaceTypeDef", _args)
-        return InterfaceTypeDef(_ctx)
-
-    async def last_reply(self) -> str:
-        """return the last llm reply from the history
-
-        Returns
-        -------
-        str
-            The `String` scalar type represents textual data, represented as
-            UTF-8 character sequences. The String type is most often used by
-            GraphQL to represent free-form human-readable text.
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("lastReply", _args)
-        return await _ctx.execute(str)
-
-    def list_type_def(self) -> ListTypeDef:
-        """Retrieve the llm state as a ListTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("listTypeDef", _args)
-        return ListTypeDef(_ctx)
-
-    def loop(self) -> Self:
-        """synchronize LLM state
-
-        .. deprecated::
-            use sync
-        """
-        warnings.warn(
-            "Method \"loop\" is deprecated: use sync",
-            DeprecationWarning,
-            stacklevel=4,
-        )                
-        _args: list[Arg] = []
-        _ctx = self._select("loop", _args)
-        return Llm(_ctx)
-
-    async def model(self) -> str:
-        """return the model used by the llm
-
-        Returns
-        -------
-        str
-            The `String` scalar type represents textual data, represented as
-            UTF-8 character sequences. The String type is most often used by
-            GraphQL to represent free-form human-readable text.
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("model", _args)
-        return await _ctx.execute(str)
-
-    def module(self) -> "Module":
-        """Retrieve the llm state as a Module"""
-        _args: list[Arg] = []
-        _ctx = self._select("module", _args)
-        return Module(_ctx)
-
-    def module_helper(self) -> "ModuleHelper":
-        """Retrieve the llm state as a ModuleHelper"""
-        _args: list[Arg] = []
-        _ctx = self._select("moduleHelper", _args)
-        return ModuleHelper(_ctx)
-
-    def module_source(self) -> "ModuleSource":
-        """Retrieve the llm state as a ModuleSource"""
-        _args: list[Arg] = []
-        _ctx = self._select("moduleSource", _args)
-        return ModuleSource(_ctx)
-
-    def module_workspace(self) -> "ModuleWorkspace":
-        """Retrieve the llm state as a ModuleWorkspace"""
-        _args: list[Arg] = []
-        _ctx = self._select("moduleWorkspace", _args)
-        return ModuleWorkspace(_ctx)
-
-    def object_type_def(self) -> "ObjectTypeDef":
-        """Retrieve the llm state as a ObjectTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("objectTypeDef", _args)
-        return ObjectTypeDef(_ctx)
-
-    def scalar_type_def(self) -> "ScalarTypeDef":
-        """Retrieve the llm state as a ScalarTypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("scalarTypeDef", _args)
-        return ScalarTypeDef(_ctx)
-
-    def sdkconfig(self) -> "SDKConfig":
-        """Retrieve the llm state as a SDKConfig"""
-        _args: list[Arg] = []
-        _ctx = self._select("sdkconfig", _args)
-        return SDKConfig(_ctx)
-
-    def secret(self) -> "Secret":
-        """Retrieve the llm state as a Secret"""
-        _args: list[Arg] = []
-        _ctx = self._select("secret", _args)
-        return Secret(_ctx)
-
-    def service(self) -> "Service":
-        """Retrieve the llm state as a Service"""
-        _args: list[Arg] = []
-        _ctx = self._select("service", _args)
-        return Service(_ctx)
-
-    def socket(self) -> "Socket":
-        """Retrieve the llm state as a Socket"""
-        _args: list[Arg] = []
-        _ctx = self._select("socket", _args)
-        return Socket(_ctx)
-
-    def source_map(self) -> "SourceMap":
-        """Retrieve the llm state as a SourceMap"""
-        _args: list[Arg] = []
-        _ctx = self._select("sourceMap", _args)
-        return SourceMap(_ctx)
-
-    async def sync(self) -> Self:
-        """synchronize LLM state
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("sync", _args)
-        _id = await _ctx.execute(LlmID)
-        _ctx = Client.from_context(_ctx)._select("loadLlmFromID", [Arg("id", _id)])
-        return Llm(_ctx)
-
-    def __await__(self):
-        return self.sync().__await__()
-
-    def terminal(self) -> "Terminal":
-        """Retrieve the llm state as a Terminal"""
-        _args: list[Arg] = []
-        _ctx = self._select("terminal", _args)
-        return Terminal(_ctx)
-
-    async def tools(self) -> str:
-        """print documentation for available tools
-
-        Returns
-        -------
-        str
-            The `String` scalar type represents textual data, represented as
-            UTF-8 character sequences. The String type is most often used by
-            GraphQL to represent free-form human-readable text.
-
-        Raises
-        ------
-        ExecuteTimeoutError
-            If the time to execute the query exceeds the configured timeout.
-        QueryError
-            If the API returns an error.
-        """
-        _args: list[Arg] = []
-        _ctx = self._select("tools", _args)
-        return await _ctx.execute(str)
-
-    def type_def(self) -> "TypeDef":
-        """Retrieve the llm state as a TypeDef"""
-        _args: list[Arg] = []
-        _ctx = self._select("typeDef", _args)
-        return TypeDef(_ctx)
-
-    def with_cache_volume(self, value: CacheVolume) -> Self:
-        """Set the llm state to a CacheVolume
-
-        Parameters
-        ----------
-        value:
-            The value of the CacheVolume to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withCacheVolume", _args)
-        return Llm(_ctx)
-
-    def with_container(self, value: Container) -> Self:
-        """Set the llm state to a Container
-
-        Parameters
-        ----------
-        value:
-            The value of the Container to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withContainer", _args)
-        return Llm(_ctx)
-
-    def with_current_module(self, value: CurrentModule) -> Self:
-        """Set the llm state to a CurrentModule
-
-        Parameters
-        ----------
-        value:
-            The value of the CurrentModule to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withCurrentModule", _args)
-        return Llm(_ctx)
-
-    def with_directory(self, value: Directory) -> Self:
-        """Set the llm state to a Directory
-
-        Parameters
-        ----------
-        value:
-            The value of the Directory to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withDirectory", _args)
-        return Llm(_ctx)
-
-    def with_enum_type_def(self, value: EnumTypeDef) -> Self:
-        """Set the llm state to a EnumTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the EnumTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withEnumTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_enum_value_type_def(self, value: EnumValueTypeDef) -> Self:
-        """Set the llm state to a EnumValueTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the EnumValueTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withEnumValueTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_error(self, value: Error) -> Self:
-        """Set the llm state to a Error
-
-        Parameters
-        ----------
-        value:
-            The value of the Error to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withError", _args)
-        return Llm(_ctx)
-
-    def with_error_value(self, value: ErrorValue) -> Self:
-        """Set the llm state to a ErrorValue
-
-        Parameters
-        ----------
-        value:
-            The value of the ErrorValue to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withErrorValue", _args)
-        return Llm(_ctx)
-
-    def with_field_type_def(self, value: FieldTypeDef) -> Self:
-        """Set the llm state to a FieldTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the FieldTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFieldTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_file(self, value: File) -> Self:
-        """Set the llm state to a File
-
-        Parameters
-        ----------
-        value:
-            The value of the File to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFile", _args)
-        return Llm(_ctx)
-
-    def with_function(self, value: Function) -> Self:
-        """Set the llm state to a Function
-
-        Parameters
-        ----------
-        value:
-            The value of the Function to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFunction", _args)
-        return Llm(_ctx)
-
-    def with_function_arg(self, value: FunctionArg) -> Self:
-        """Set the llm state to a FunctionArg
-
-        Parameters
-        ----------
-        value:
-            The value of the FunctionArg to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFunctionArg", _args)
-        return Llm(_ctx)
-
-    def with_function_call(self, value: FunctionCall) -> Self:
-        """Set the llm state to a FunctionCall
-
-        Parameters
-        ----------
-        value:
-            The value of the FunctionCall to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFunctionCall", _args)
-        return Llm(_ctx)
-
-    def with_function_call_arg_value(self, value: FunctionCallArgValue) -> Self:
-        """Set the llm state to a FunctionCallArgValue
-
-        Parameters
-        ----------
-        value:
-            The value of the FunctionCallArgValue to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withFunctionCallArgValue", _args)
-        return Llm(_ctx)
-
-    def with_generated_code(self, value: GeneratedCode) -> Self:
-        """Set the llm state to a GeneratedCode
-
-        Parameters
-        ----------
-        value:
-            The value of the GeneratedCode to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withGeneratedCode", _args)
-        return Llm(_ctx)
-
-    def with_git_ref(self, value: GitRef) -> Self:
-        """Set the llm state to a GitRef
-
-        Parameters
-        ----------
-        value:
-            The value of the GitRef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withGitRef", _args)
-        return Llm(_ctx)
-
-    def with_git_repository(self, value: GitRepository) -> Self:
-        """Set the llm state to a GitRepository
-
-        Parameters
-        ----------
-        value:
-            The value of the GitRepository to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withGitRepository", _args)
-        return Llm(_ctx)
-
-    def with_input_type_def(self, value: InputTypeDef) -> Self:
-        """Set the llm state to a InputTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the InputTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withInputTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_interface_type_def(self, value: InterfaceTypeDef) -> Self:
-        """Set the llm state to a InterfaceTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the InterfaceTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withInterfaceTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_list_type_def(self, value: ListTypeDef) -> Self:
-        """Set the llm state to a ListTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the ListTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withListTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_module(self, value: "Module") -> Self:
-        """Set the llm state to a Module
-
-        Parameters
-        ----------
-        value:
-            The value of the Module to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withModule", _args)
-        return Llm(_ctx)
-
-    def with_module_helper(self, value: "ModuleHelper") -> Self:
-        """Set the llm state to a ModuleHelper
-
-        Parameters
-        ----------
-        value:
-            The value of the ModuleHelper to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withModuleHelper", _args)
-        return Llm(_ctx)
-
-    def with_module_source(self, value: "ModuleSource") -> Self:
-        """Set the llm state to a ModuleSource
-
-        Parameters
-        ----------
-        value:
-            The value of the ModuleSource to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withModuleSource", _args)
-        return Llm(_ctx)
-
-    def with_module_workspace(self, value: "ModuleWorkspace") -> Self:
-        """Set the llm state to a ModuleWorkspace
-
-        Parameters
-        ----------
-        value:
-            The value of the ModuleWorkspace to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withModuleWorkspace", _args)
-        return Llm(_ctx)
-
-    def with_object_type_def(self, value: "ObjectTypeDef") -> Self:
-        """Set the llm state to a ObjectTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the ObjectTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withObjectTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_prompt(self, prompt: str) -> Self:
-        """append a prompt to the llm context
-
-        Parameters
-        ----------
-        prompt:
-            The prompt to send
-        """
-        _args = [
-            Arg("prompt", prompt),
-        ]
-        _ctx = self._select("withPrompt", _args)
-        return Llm(_ctx)
-
-    def with_prompt_file(self, file: File) -> Self:
-        """append the contents of a file to the llm context
-
-        Parameters
-        ----------
-        file:
-            The file to read the prompt from
-        """
-        _args = [
-            Arg("file", file),
-        ]
-        _ctx = self._select("withPromptFile", _args)
-        return Llm(_ctx)
-
-    def with_prompt_var(self, name: str, value: str) -> Self:
-        """set a variable for expansion in the prompt
-
-        Parameters
-        ----------
-        name:
-            The name of the variable
-        value:
-            The value of the variable
-        """
-        _args = [
-            Arg("name", name),
-            Arg("value", value),
-        ]
-        _ctx = self._select("withPromptVar", _args)
-        return Llm(_ctx)
-
-    def with_sdk_config(self, value: "SDKConfig") -> Self:
-        """Set the llm state to a SDKConfig
-
-        Parameters
-        ----------
-        value:
-            The value of the SDKConfig to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withSDKConfig", _args)
-        return Llm(_ctx)
-
-    def with_scalar_type_def(self, value: "ScalarTypeDef") -> Self:
-        """Set the llm state to a ScalarTypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the ScalarTypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withScalarTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_secret(self, value: "Secret") -> Self:
-        """Set the llm state to a Secret
-
-        Parameters
-        ----------
-        value:
-            The value of the Secret to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withSecret", _args)
-        return Llm(_ctx)
-
-    def with_service(self, value: "Service") -> Self:
-        """Set the llm state to a Service
-
-        Parameters
-        ----------
-        value:
-            The value of the Service to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withService", _args)
-        return Llm(_ctx)
-
-    def with_socket(self, value: "Socket") -> Self:
-        """Set the llm state to a Socket
-
-        Parameters
-        ----------
-        value:
-            The value of the Socket to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withSocket", _args)
-        return Llm(_ctx)
-
-    def with_source_map(self, value: "SourceMap") -> Self:
-        """Set the llm state to a SourceMap
-
-        Parameters
-        ----------
-        value:
-            The value of the SourceMap to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withSourceMap", _args)
-        return Llm(_ctx)
-
-    def with_terminal(self, value: "Terminal") -> Self:
-        """Set the llm state to a Terminal
-
-        Parameters
-        ----------
-        value:
-            The value of the Terminal to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withTerminal", _args)
-        return Llm(_ctx)
-
-    def with_type_def(self, value: "TypeDef") -> Self:
-        """Set the llm state to a TypeDef
-
-        Parameters
-        ----------
-        value:
-            The value of the TypeDef to save
-        """
-        _args = [
-            Arg("value", value),
-        ]
-        _ctx = self._select("withTypeDef", _args)
-        return Llm(_ctx)
-
-    def with_(self, cb: Callable[["Llm"], "Llm"]) -> "Llm":
-        """Call the provided callable with current Llm.
-
-        This is useful for reusability and readability by not breaking the calling chain.
-        """
-        return cb(self)
-
 
 
 @typecheck
@@ -5587,6 +6984,96 @@ class Module(Type):
 
 
 @typecheck
+class ModuleConfigClient(Type):
+    """The client generated for the module."""
+
+    async def dev(self) -> bool | None:
+        """If true, generate the client in developer mode.
+
+        Returns
+        -------
+        bool | None
+            The `Boolean` scalar type represents `true` or `false`.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("dev", _args)
+        return await _ctx.execute(bool | None)
+
+    async def directory(self) -> str:
+        """The directory the client is generated in.
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("directory", _args)
+        return await _ctx.execute(str)
+
+    async def generator(self) -> str:
+        """The generator to use
+
+        Returns
+        -------
+        str
+            The `String` scalar type represents textual data, represented as
+            UTF-8 character sequences. The String type is most often used by
+            GraphQL to represent free-form human-readable text.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("generator", _args)
+        return await _ctx.execute(str)
+
+    async def id(self) -> ModuleConfigClientID:
+        """A unique identifier for this ModuleConfigClient.
+
+        Note
+        ----
+        This is lazily evaluated, no operation is actually run.
+
+        Returns
+        -------
+        ModuleConfigClientID
+            The `ModuleConfigClientID` scalar type represents an identifier
+            for an object of type ModuleConfigClient.
+
+        Raises
+        ------
+        ExecuteTimeoutError
+            If the time to execute the query exceeds the configured timeout.
+        QueryError
+            If the API returns an error.
+        """
+        _args: list[Arg] = []
+        _ctx = self._select("id", _args)
+        return await _ctx.execute(ModuleConfigClientID)
+
+
+@typecheck
 class ModuleHelper(Type):
 
     async def get_module_schema(self, mod: Module) -> str:
@@ -5751,8 +7238,7 @@ class ModuleSource(Type):
         return await _ctx.execute(str)
 
     async def commit(self) -> str:
-        """The resolved commit of the git repo this source points to. Only valid
-        for git sources.
+        """The resolved commit of the git repo this source points to.
 
         Returns
         -------
@@ -5771,6 +7257,17 @@ class ModuleSource(Type):
         _args: list[Arg] = []
         _ctx = self._select("commit", _args)
         return await _ctx.execute(str)
+
+    async def config_clients(self) -> list[ModuleConfigClient]:
+        """The clients generated for the module."""
+        _args: list[Arg] = []
+        _ctx = self._select("configClients", _args)
+        _ctx = ModuleConfigClient(_ctx)._select("id", [])
+        @dataclass
+        class Response:
+            id: ModuleConfigClientID
+        _ids = await _ctx.execute(list[Response])
+        return [ModuleConfigClient(Client.from_context(_ctx)._select("loadModuleConfigClientFromID", [Arg("id", v.id)],)) for v in _ids]
 
     async def config_exists(self) -> bool:
         """Whether an existing dagger.json for the module was found.
@@ -5869,26 +7366,6 @@ class ModuleSource(Type):
         _ctx = self._select("engineVersion", _args)
         return await _ctx.execute(str)
 
-    def generate_client(self, generator: str, output_dir: str, *, local_sdk: bool | None = None,) -> Directory:
-        """Generates a client for the module.
-
-        Parameters
-        ----------
-        generator:
-            The generator to use
-        output_dir:
-            The output directory for the generated client.
-        local_sdk:
-            Use local SDK dependency
-        """
-        _args = [
-            Arg("generator", generator),
-            Arg("outputDir", output_dir),
-            Arg("localSdk", local_sdk, None),
-        ]
-        _ctx = self._select("generateClient", _args)
-        return Directory(_ctx)
-
     def generated_context_directory(self) -> Directory:
         """The generated files and directories made on top of the module source's
         context directory.
@@ -5899,7 +7376,7 @@ class ModuleSource(Type):
 
     async def html_repo_url(self) -> str:
         """The URL to access the web view of the repository (e.g., GitHub,
-        GitLab, Bitbucket). Only valid for git sources.
+        GitLab, Bitbucket).
 
         Returns
         -------
@@ -6186,8 +7663,7 @@ class ModuleSource(Type):
         return self.sync().__await__()
 
     async def version(self) -> str:
-        """The specified version of the git repo this source points to. Only
-        valid for git sources.
+        """The specified version of the git repo this source points to.
 
         Returns
         -------
@@ -6206,6 +7682,26 @@ class ModuleSource(Type):
         _args: list[Arg] = []
         _ctx = self._select("version", _args)
         return await _ctx.execute(str)
+
+    def with_client(self, generator: str, output_dir: str, *, dev: bool | None = None,) -> Self:
+        """Update the module source with a new client to generate.
+
+        Parameters
+        ----------
+        generator:
+            The generator to use
+        output_dir:
+            The output directory for the generated client.
+        dev:
+            Generate in developer mode
+        """
+        _args = [
+            Arg("generator", generator),
+            Arg("outputDir", output_dir),
+            Arg("dev", dev, None),
+        ]
+        _ctx = self._select("withClient", _args)
+        return ModuleSource(_ctx)
 
     def with_dependencies(self, dependencies: list["ModuleSource"]) -> Self:
         """Append the provided dependencies to the module source's dependency
@@ -6918,7 +8414,7 @@ class Client(Root):
         _ctx = self._select("http", _args)
         return File(_ctx)
 
-    def llm(self, *, model: str | None = None, max_api_calls: int | None = None,) -> Llm:
+    def llm(self, *, model: str | None = None, max_api_calls: int | None = None,) -> LLM:
         """Initialize a Large Language Model (LLM)
 
         Parameters
@@ -6930,10 +8426,10 @@ class Client(Root):
         """
         _args = [
             Arg("model", model, None),
-            Arg("maxApiCalls", max_api_calls, None),
+            Arg("maxAPICalls", max_api_calls, None),
         ]
         _ctx = self._select("llm", _args)
-        return Llm(_ctx)
+        return LLM(_ctx)
 
     def load_cache_volume_from_id(self, id: CacheVolumeID) -> CacheVolume:
         """Load a CacheVolume from its ID."""
@@ -7095,6 +8591,22 @@ class Client(Root):
         _ctx = self._select("loadInterfaceTypeDefFromID", _args)
         return InterfaceTypeDef(_ctx)
 
+    def load_llm_from_id(self, id: LLMID) -> LLM:
+        """Load a LLM from its ID."""
+        _args = [
+            Arg("id", id),
+        ]
+        _ctx = self._select("loadLLMFromID", _args)
+        return LLM(_ctx)
+
+    def load_llm_variable_from_id(self, id: LLMVariableID) -> LLMVariable:
+        """Load a LLMVariable from its ID."""
+        _args = [
+            Arg("id", id),
+        ]
+        _ctx = self._select("loadLLMVariableFromID", _args)
+        return LLMVariable(_ctx)
+
     def load_label_from_id(self, id: LabelID) -> Label:
         """Load a Label from its ID."""
         _args = [
@@ -7111,13 +8623,13 @@ class Client(Root):
         _ctx = self._select("loadListTypeDefFromID", _args)
         return ListTypeDef(_ctx)
 
-    def load_llm_from_id(self, id: LlmID) -> Llm:
-        """Load a Llm from its ID."""
+    def load_module_config_client_from_id(self, id: ModuleConfigClientID) -> ModuleConfigClient:
+        """Load a ModuleConfigClient from its ID."""
         _args = [
             Arg("id", id),
         ]
-        _ctx = self._select("loadLlmFromID", _args)
-        return Llm(_ctx)
+        _ctx = self._select("loadModuleConfigClientFromID", _args)
+        return ModuleConfigClient(_ctx)
 
     def load_module_from_id(self, id: ModuleID) -> Module:
         """Load a Module from its ID."""
@@ -8321,13 +9833,17 @@ __all__ = [
     "InterfaceTypeDef",
     "InterfaceTypeDefID",
     "JSON",
+    "LLM",
+    "LLMID",
+    "LLMVariable",
+    "LLMVariableID",
     "Label",
     "LabelID",
     "ListTypeDef",
     "ListTypeDefID",
-    "Llm",
-    "LlmID",
     "Module",
+    "ModuleConfigClient",
+    "ModuleConfigClientID",
     "ModuleHelper",
     "ModuleHelperID",
     "ModuleID",
