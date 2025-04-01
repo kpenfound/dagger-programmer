@@ -4,7 +4,7 @@ from dagger import dag, Doc, Directory, function, Module, object_type
 @object_type
 class DaggerProgrammer:
     model: Annotated[str | None, Doc("LLM model to use")] = None
-    dagger_version: Annotated[str, Doc("version of the dagger CLI to use")] = "v0.16.2"
+    dagger_version: Annotated[str, Doc("version of the dagger CLI to use")] = "v0.18.0"
     @function
     async def translate(
         self,
@@ -33,18 +33,24 @@ class DaggerProgrammer:
             )
             .contents()
         )
+
+        environment = (
+            dag.env()
+            .with_module_workspace_input("workspace", ws, "workspace to develop dagger modules")
+            .with_string_input("source_mod_sdk", source_mod_sdk, "")
+            .with_string_input("source_mod_file", source_mod_file, "")
+            .with_string_input("language", language, "")
+            .with_module_workspace_output("output", "the workspace containing the translated module")
+        )
         # translate the source mod to the target sdk
         work = (
             dag
             .llm(model=self.model)
-            .with_module_workspace(ws)
+            .with_env(environment)
             .with_prompt(await ws.get_sdk_reference(source_mod_sdk))
             .with_prompt(await ws.get_sdk_reference(language))
-            .with_prompt_var("language", language)
-            .with_prompt_var("source_mod_sdk", source_mod_sdk)
-            .with_prompt_var("source_mod_file", source_mod_file)
             .with_prompt_file(dag.current_module().source().file("prompt_translator.txt"))
-            .module_workspace()
+            .env().output("output").as_module_workspace()
         )
 
         # Check again that test passes because LLMs lie
@@ -72,14 +78,20 @@ class DaggerProgrammer:
             dagger_version=self.dagger_version
         )
 
+        environment = (
+            dag.env()
+            .with_module_workspace_input("workspace", ws, "workspace to develop dagger modules")
+            .with_string_input("source_mod_schema", source_mod_schema, "")
+            .with_module_workspace_output("output", "the workspace containing the example module")
+        )
+
         example_work = (
             dag
             .llm(model=self.model)
-            .with_module_workspace(ws)
+            .with_env(environment)
             .with_prompt(await ws.get_examples_reference())
-            .with_prompt_var("source_mod_schema", source_mod_schema)
             .with_prompt_file(dag.current_module().source().file("prompt_exampler.txt"))
-            .module_workspace()
+            .env().output("output").as_module_workspace()
         )
 
         # # make sure the first example works
