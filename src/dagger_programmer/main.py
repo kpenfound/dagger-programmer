@@ -4,7 +4,7 @@ from dagger import dag, Doc, Directory, function, Module, object_type
 @object_type
 class DaggerProgrammer:
     model: Annotated[str | None, Doc("LLM model to use")] = None
-    dagger_version: Annotated[str, Doc("version of the dagger CLI to use")] = "v0.18.0"
+    dagger_version: Annotated[str, Doc("version of the dagger CLI to use")] = "v0.18.5"
     @function
     async def translate(
         self,

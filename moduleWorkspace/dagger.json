@@ -1,6 +1,6 @@
 {
   "name": "moduleWorkspace",
-  "engineVersion": "v0.17.0-llm.3",
+  "engineVersion": "v0.18.5",
   "sdk": {
     "source": "typescript"
   },
