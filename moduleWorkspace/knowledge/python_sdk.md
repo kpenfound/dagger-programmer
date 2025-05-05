@@ -51,3 +51,49 @@ dag.container().
     with_exec(["run"]).
     as_service(experimental_privileged_nesting=True)
 ```
+
+## Inline Documentation
+
+Dagger modules can be documented in 3 ways:
+1. Module documentation goes at the top of the file
+2. Function method documentation describes what a function does
+3. Function argument documentation describes what each argument is for
+
+Below is a simple module that includes all of this documentation:
+
+```python
+"""A simple example module to say hello.
+
+Further documentation for the module here.
+"""
+
+from typing import Annotated
+
+from dagger import Doc, function, object_type
+
+
+@object_type
+class MyModule:
+    """Simple hello functions."""
+
+    @function
+    def hello(
+        self,
+        name: Annotated[str, Doc("Who to greet")],
+        greeting: Annotated[str, Doc("The greeting to display")],
+    ) -> str:
+        """Return a greeting."""
+        return f"{greeting}, {name}!"
+
+    @function
+    def loud_hello(
+        self,
+        name: Annotated[str, Doc("Who to greet")],
+        greeting: Annotated[str, Doc("The greeting to display")],
+    ) -> str:
+        """Return a loud greeting.
+
+        Loud means all caps.
+        """
+        return f"{greeting.upper()}, {name.upper()}!"
+```

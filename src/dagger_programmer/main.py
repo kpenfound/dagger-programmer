@@ -107,7 +107,7 @@ class DaggerProgrammer:
         # translate that example to the other languages
         all_examples = dag.directory().with_directory(f"examples/{example_lang}", example_mod)
 
-        for sdk in ["python", "typescript"]: # , "php", "java"]: # started with Go
+        for sdk in ["python", "typescript", "php", "java"]: # initial example is Go
             translated_example = await self.translate(dep_swapped_example, sdk, dependencies=[source_mod_dir])
             translated_mod = self.convert_example_to_module(translated_example, source_mod_name, sdk)
             all_examples = all_examples.with_directory(f"examples/{sdk}", translated_mod)

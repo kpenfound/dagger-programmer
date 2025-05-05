@@ -9,7 +9,7 @@ class ModuleHelper:
             "go": "main.go",
             "python": f"src/{name}/main.py",
             "typescript": "src/index.ts",
-            "php": "src/MyModule.php",
+            "php": f"src/{name}.php",
             "java": f"src/main/java/io/dagger/modules/{name.lower()}/{name}.java"
         }[sdk]
 
