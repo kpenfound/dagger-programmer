@@ -54,6 +54,13 @@ Example:
 write-examples github.com/shykes/hello | terminal
 ```
 
+If the module has dependencies, specify those with the optional `--dependencies`:
+
+⋈ Generate examples for a the shykes/hello module:
+```
+write-examples github.com/shykes/hello --dependencies github.com/kpenfound/dagger-modules/proxy,./local/path/another/dependency | terminal
+```
+
 ### What's next?
 
 - Assist in developing a module
