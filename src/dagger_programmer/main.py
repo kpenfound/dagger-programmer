@@ -49,7 +49,7 @@ class DaggerProgrammer:
             .with_env(environment)
             .with_prompt(await ws.get_sdk_reference(source_mod_sdk))
             .with_prompt(await ws.get_sdk_reference(language))
-            .with_prompt_file(dag.current_module().source().file("prompt_translator.txt"))
+            .with_prompt_file(dag.current_module().source().file("prompt_translator.md"))
             .env().output("output").as_module_workspace()
         )
 
@@ -90,7 +90,7 @@ class DaggerProgrammer:
             .llm(model=self.model)
             .with_env(environment)
             .with_prompt(await ws.get_examples_reference())
-            .with_prompt_file(dag.current_module().source().file("prompt_exampler.txt"))
+            .with_prompt_file(dag.current_module().source().file("prompt_exampler.md"))
             .env().output("output").as_module_workspace()
         )
 
