@@ -31,11 +31,20 @@ The `translate` function has two arguments:
 
 This will output a `dagger.Directory` containing the translated module. With that Directory, you can inspect the translated files with `| terminal`, and then export them to the desired path on your host `| export ./php/`
 
+After exporting, it is recommended to carefully evaluate the code for correctness. AI can make mistakes :)
+
 Example:
 
 ⋈ Translate the shykes/hello module to typescript:
 ```
 translate github.com/shykes/hello typescript | terminal
+```
+
+If the module has dependencies, specify those with the optional `--dependencies`:
+
+⋈ Translate the shykes/hello module to typescript:
+```
+translate github.com/shykes/hello typescript --dependencies github.com/kpenfound/dagger-modules/proxy,./local/path/another/dependency | terminal
 ```
 
 ### Generate examples
@@ -52,13 +61,6 @@ Example:
 ⋈ Generate examples for a the shykes/hello module:
 ```
 write-examples github.com/shykes/hello | terminal
-```
-
-If the module has dependencies, specify those with the optional `--dependencies`:
-
-⋈ Generate examples for a the shykes/hello module:
-```
-write-examples github.com/shykes/hello --dependencies github.com/kpenfound/dagger-modules/proxy,./local/path/another/dependency | terminal
 ```
 
 ### What's next?
