@@ -58,3 +58,46 @@ dag.container().
     withExec(["run"]).
     asService({ experimentalPrivilegedNesting: true })
 ```
+
+## Inline Documentation
+
+Dagger modules can be documented in 3 ways:
+1. Module documentation goes at the top of the file
+2. Function method documentation describes what a function does
+3. Function argument documentation describes what each argument is for
+
+Below is a simple module that includes all of this documentation:
+
+```typescript
+/**
+ * A simple example module to say hello.
+ *
+ * Further documentation for the module here.
+ */
+import { object, func } from "@dagger.io/dagger"
+
+@object()
+class MyModule {
+  /**
+   * Return a greeting.
+   *
+   * @param name Who to greet
+   * @param greeting The greeting to display
+   */
+  @func()
+  hello(name: string, greeting: string): string {
+    return `${greeting}, ${name}!`
+  }
+
+  /**
+   * Return a loud greeting.
+   *
+   * @param name Who to greet
+   * @param greeting The greeting to display
+   */
+  @func()
+  loudHello(name: string, greeting: string): string {
+    return `${greeting.toUpperCase()}, ${name.toUpperCase()}!`
+  }
+}
+```

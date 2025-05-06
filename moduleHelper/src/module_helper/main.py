@@ -1,3 +1,4 @@
+import re
 from dagger import function, Module, object_type, TypeDef
 
 @object_type
@@ -9,8 +10,8 @@ class ModuleHelper:
             "go": "main.go",
             "python": f"src/{name}/main.py",
             "typescript": "src/index.ts",
-            "php": "src/MyModule.php",
-            "java": f"src/main/java/io/dagger/modules/{name.lower()}/{name}.java"
+            "php": f"src/{to_pascal_case(name)}.php",
+            "java": f"src/main/java/io/dagger/modules/{to_pascal_case(name).lower()}/{to_pascal_case(name)}.java"
         }[sdk]
 
     @function
@@ -68,3 +69,31 @@ class ModuleHelper:
             return "Void" + opt
 
         return "UNKNOWN"
+
+def to_pascal_case(input_string: str) -> str:
+  """
+  Converts a string with spaces, hyphens, or underscores into PascalCase.
+
+  PascalCase (or UpperCamelCase) means the first letter of each
+  compound word is capitalized, and there are no separators.
+
+  Args:
+    input_string: The string to convert. Can contain spaces, hyphens (-),
+                  or underscores (_).
+
+  Returns:
+    The PascalCase version of the string, or an empty string if the
+    input results in no words after splitting.
+  """
+  if not input_string:
+      return ""
+
+  # Split the string by space, hyphen, or underscore
+  # The regex '[ _-]+' matches one or more occurrences of space, underscore, or hyphen
+  words = re.split('[ _-]+', input_string)
+
+  # Capitalize the first letter of each word and join them
+  # Filter out any empty strings that might result from multiple delimiters
+  pascal_case_string = ''.join(word.capitalize() for word in words if word)
+
+  return pascal_case_string

@@ -8,14 +8,14 @@ class DaggerProgrammer:
     @function
     async def translate(
         self,
-        mod: Annotated[Module, Doc("The dagger module to translate")],
+        module: Annotated[Module, Doc("The dagger module to translate")],
         language: Annotated[str, Doc("The language to translate the module to")],
         dependencies: Annotated[list[Directory], Doc("Dependencies required for the module")] = [],
     ) -> Directory:
         """Returns a dagger module in the specified language translated from the provided module"""
         # read the current module
-        source_mod_sdk = await mod.sdk().source()
-        source_mod_name = await mod.name()
+        source_mod_sdk = await module.sdk().source()
+        source_mod_name = await module.name()
 
         # Create a mod/workspace for the translated sdk
         ws = dag.module_workspace(
@@ -26,7 +26,7 @@ class DaggerProgrammer:
             )
 
         source_mod_file = (
-            await mod.source().directory(".")
+            await module.source().directory(".")
             .file(
                 await dag.module_helper()
                 .get_sdk_main_file(source_mod_sdk, source_mod_name)
@@ -49,7 +49,7 @@ class DaggerProgrammer:
             .with_env(environment)
             .with_prompt(await ws.get_sdk_reference(source_mod_sdk))
             .with_prompt(await ws.get_sdk_reference(language))
-            .with_prompt_file(dag.current_module().source().file("prompt_translator.txt"))
+            .with_prompt_file(dag.current_module().source().file("prompt_translator.md"))
             .env().output("output").as_module_workspace()
         )
 
@@ -63,14 +63,14 @@ class DaggerProgrammer:
     @function
     async def write_examples(
         self,
-        mod: Annotated[Module, Doc("The dagger module to write examples for")],
+        module: Annotated[Module, Doc("The dagger module to write examples for")],
     ) -> Directory:
         """Writes examples in all supported languages for the provided module and returns the directory containing them"""
         # write example in the Go
         example_lang = "go"
-        source_mod_schema = await dag.module_helper().get_module_schema(mod)
-        source_mod_name = await mod.name()
-        source_mod_dir = mod.source().directory(".")
+        source_mod_schema = await dag.module_helper().get_module_schema(module)
+        source_mod_name = await module.name()
+        source_mod_dir = module.source().directory(".")
         ws = dag.module_workspace(
             example_lang,
             "example",
@@ -90,7 +90,7 @@ class DaggerProgrammer:
             .llm(model=self.model)
             .with_env(environment)
             .with_prompt(await ws.get_examples_reference())
-            .with_prompt_file(dag.current_module().source().file("prompt_exampler.txt"))
+            .with_prompt_file(dag.current_module().source().file("prompt_exampler.md"))
             .env().output("output").as_module_workspace()
         )
 
@@ -107,7 +107,7 @@ class DaggerProgrammer:
         # translate that example to the other languages
         all_examples = dag.directory().with_directory(f"examples/{example_lang}", example_mod)
 
-        for sdk in ["python", "typescript"]: # , "php", "java"]: # started with Go
+        for sdk in ["python", "typescript", "php", "java"]: # initial example is Go
             translated_example = await self.translate(dep_swapped_example, sdk, dependencies=[source_mod_dir])
             translated_mod = self.convert_example_to_module(translated_example, source_mod_name, sdk)
             all_examples = all_examples.with_directory(f"examples/{sdk}", translated_mod)
