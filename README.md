@@ -33,7 +33,7 @@ This will output a `dagger.Directory` containing the translated module. With tha
 
 Example:
 
-⋈ Run the translate function:
+⋈ Translate the shykes/hello module to typescript:
 ```
 translate github.com/shykes/hello typescript | terminal
 ```
@@ -47,12 +47,14 @@ The `write-examples` function has one argument:
 
 This will output a `dagger.Directory` containing the all of the example modules. With that Directory, you can inspect the example files with `| terminal`, and then export them to the desired path on your host `| export ./examples/`
 
-⋈ Generate examples for a module.
+Example:
+
+⋈ Generate examples for a the shykes/hello module:
 ```
 write-examples github.com/shykes/hello | terminal
 ```
 
-#### What's next?
+### What's next?
 
 - Assist in developing a module
 - Generate an entire module based on a detailed prompt
