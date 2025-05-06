@@ -8,7 +8,7 @@ class ModuleHelper:
         """Get the main SDK file path for the given module name and SDK"""
         return {
             "go": "main.go",
-            "python": f"src/{name}/main.py",
+            "python": f"src/{to_python_case(name)}/main.py",
             "typescript": "src/index.ts",
             "php": f"src/{to_pascal_case(name)}.php",
             "java": f"src/main/java/io/dagger/modules/{to_pascal_case(name).lower()}/{to_pascal_case(name)}.java"
@@ -22,9 +22,6 @@ class ModuleHelper:
         mod_objects = await mod.objects()
         schema = f"\n<module name='{mod_name}' description='{mod_description}'>"
         for obj in mod_objects:
-            # just get the main object
-         #   if await self.get_type_name(obj) == mod_name:
-            # just get main object functions
             funcs = await obj.as_object().functions()
             for func in funcs:
                 func_name = await func.name()
@@ -36,8 +33,6 @@ class ModuleHelper:
                     arg_name = await arg.name()
                     arg_type = await self.get_type_name(arg.type_def())
                     arg_description = await arg.description()
-                    # arg_default = await arg.default_value()
-                    # default_schema = f" default='{arg_default}'" if arg_default else ""
                     schema += f"\n\t\t<arg name='{arg_name}' type='{arg_type}' description='{arg_description}' />"
                 schema += "\n\t</function>"
         return schema + "\n</module>"
@@ -69,6 +64,9 @@ class ModuleHelper:
             return "Void" + opt
 
         return "UNKNOWN"
+
+def to_python_case(input_string: str) -> str:
+    return input_string.replace("-", "_")
 
 def to_pascal_case(input_string: str) -> str:
   """
