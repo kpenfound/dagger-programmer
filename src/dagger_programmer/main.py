@@ -11,6 +11,7 @@ class DaggerProgrammer:
         module: Annotated[Module, Doc("The dagger module to translate")],
         language: Annotated[str, Doc("The language to translate the module to")],
         dependencies: Annotated[list[Directory], Doc("Dependencies required for the module")] = [],
+        skip_test: Annotated[bool, Doc("Skip running tests after translating")] = False,
     ) -> Directory:
         """Returns a dagger module in the specified language translated from the provided module"""
         # read the current module
@@ -54,7 +55,7 @@ class DaggerProgrammer:
         )
 
         # Check again that test passes because LLMs lie
-        if await work.test() != "TEST PASSED":
+        if (not skip_test) and (await work.test() != "TEST PASSED"):
             raise Exception("Translated module did not pass test")
 
         # return work output
@@ -108,7 +109,7 @@ class DaggerProgrammer:
         all_examples = dag.directory().with_directory(f"examples/{example_lang}", example_mod)
 
         for sdk in ["python", "typescript", "php", "java"]: # initial example is Go
-            translated_example = await self.translate(dep_swapped_example, sdk, dependencies=[source_mod_dir])
+            translated_example = await self.translate(dep_swapped_example, sdk, dependencies=[source_mod_dir], skip_test=False)
             translated_mod = self.convert_example_to_module(translated_example, source_mod_name, sdk)
             all_examples = all_examples.with_directory(f"examples/{sdk}", translated_mod)
 
